@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>沖繩自由行</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: rgba(255,255,255,0.92);
+      --card-strong: #ffffff;
+      --text: #142033;
+      --muted: #4b5563;
+      --line: #dbe2ea;
+      --primary: #1677ff;
+      --primary-2: #0ea5e9;
+      --gold: #d4af37;
+      --gold-ink: #6e5710;
+      --danger: #e15b64;
+      --success: #12805c;
+      --shadow: 0 16px 48px rgba(15, 23, 42, 0.08);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --header-h: 74px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(14,165,233,0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(212,175,55,0.12), transparent 20%),
+        linear-gradient(180deg, #eaf6ff 0%, #f7fafc 34%, #f6f8fb 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .app {
+      width: min(1180px, calc(100vw - 24px));
+      margin: 0 auto;
+      padding: 14px 0 40px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(16px);
+      background: rgba(246,248,251,0.78);
+      border-bottom: 1px solid rgba(219,226,234,0.9);
+    }
+
+    .topbar-inner {
+      width: min(1180px, calc(100vw - 24px));
+      margin: 0 auto;
+      min-height: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #1e90ff, #7dd3fc 60%, #fff5cc);
+      box-shadow: 0 12px 28px rgba(22, 119, 255, 0.18);
+      position: relative;
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+    }
+
+    .brand-mark::before {
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.72);
+      top: -10px;
+      right: -10px;
+    }
+
+    .brand-mark::after {
+      width: 56px;
+      height: 18px;
+      background: rgba(255,255,255,0.55);
+      left: -4px;
+      bottom: 8px;
+      transform: rotate(-10deg);
+    }
+
+    .brand h1 {
+      font-size: 1.05rem;
+      margin: 0;
+      letter-spacing: 0.03em;
+    }
+
+    .brand p {
+      margin: 2px 0 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(219,226,234,0.95);
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      min-height: 480px;
+      margin-top: 16px;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(11,17,32,0.16), rgba(11,17,32,0.68)),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80') center/cover;
+      color: white;
+      display: flex;
+      align-items: flex-end;
+      isolation: isolate;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -30% auto;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(212,175,55,0.32), transparent 70%);
+      z-index: -1;
+    }
+
+    .hero-content {
+      padding: 28px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 18px;
+      align-items: end;
+    }
+
+    .hero h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.05;
+      margin: 0 0 12px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero .sub {
+      max-width: 760px;
+      font-size: 1rem;
+      line-height: 1.78;
+      color: rgba(255,255,255,0.92);
+      margin: 0 0 18px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .hero-panel {
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 24px;
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-panel h3 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .hero-panel p {
+      margin: 0;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.72;
+      font-size: 0.95rem;
+    }
+
+    .hero-panel .accent {
+      color: #fff5c5;
+      font-weight: 800;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 28px 0 16px;
+    }
+
+    .section-title h3 {
+      margin: 0;
+      font-size: 1.45rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-weight: 600;
+      line-height: 1.75;
+    }
+
+    .notice-grid,
+    .summary-grid,
+    .prep-grid,
+    .spot-grid,
+    .info-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .notice-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+    .summary-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .prep-grid { grid-template-columns: 1.2fr 1fr; }
+    .spot-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .info-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(219,226,234,0.95);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .notice-card h4,
+    .summary-card h4,
+    .prep-card h4,
+    .spot-card h4,
+    .info-card h4,
+    .day-panel h4 {
+      margin: 0 0 8px;
+      font-size: 1.02rem;
+    }
+
+    .meta-strong {
+      color: var(--muted);
+      font-weight: 700;
+      line-height: 1.72;
+      font-size: 0.96rem;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      background: #f3f7fb;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .pill.gold {
+      background: rgba(212,175,55,0.16);
+      color: var(--gold-ink);
+      border-color: rgba(212,175,55,0.35);
+    }
+
+    .tabs {
+      position: sticky;
+      top: calc(var(--header-h) + 8px);
+      z-index: 25;
+      margin-top: 22px;
+      background: rgba(246,248,251,0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(219,226,234,0.92);
+      border-radius: 999px;
+      padding: 8px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 11px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      min-width: max-content;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #0f74ff, #16b5ff);
+      color: white;
+      box-shadow: 0 10px 24px rgba(15,116,255,0.22);
+    }
+
+    .tab-panel {
+      display: none;
+      margin-top: 18px;
+    }
+
+    .tab-panel.active { display: block; }
+
+    .day-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 0.86fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .itinerary-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .itinerary-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(15,23,42,0.12);
+      border-color: rgba(22,119,255,0.28);
+    }
+
+    .itinerary-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .time-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 78px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      background: #edf3ff;
+      color: #0f5bca;
+      border: 1px solid #cadcff;
+      flex-shrink: 0;
+    }
+
+    .time-badge.gold {
+      background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(255,246,211,0.82));
+      color: var(--gold-ink);
+      border-color: rgba(212,175,55,0.42);
+      box-shadow: 0 8px 20px rgba(212,175,55,0.16);
+    }
+
+    .itinerary-title {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .itinerary-card p,
+    .day-panel p,
+    .summary-card p,
+    .notice-card p,
+    .prep-card p,
+    .spot-card p,
+    .info-card p,
+    .modal-body p,
+    li {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.82;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0f74ff, #15b2ff);
+      color: white;
+      box-shadow: 0 10px 24px rgba(15,116,255,0.2);
+    }
+
+    .btn-soft {
+      background: #f4f7fb;
+      color: var(--muted);
+      border: 1px solid var(--line);
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .day-panel {
+      position: sticky;
+      top: calc(var(--header-h) + 82px);
+      display: grid;
+      gap: 16px;
+    }
+
+    .cover-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .cover-card img {
+      display: block;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .cover-card .inner { padding: 18px; }
+
+    .quote {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(15,116,255,0.08), rgba(14,165,233,0.1));
+      border: 1px solid rgba(15,116,255,0.14);
+      color: #184580;
+      font-weight: 800;
+      line-height: 1.8;
+    }
+
+    .list-clean {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+
+    .spot-card,
+    .info-card,
+    .prep-card,
+    .summary-card,
+    .notice-card {
+      display: grid;
+      gap: 8px;
+    }
+
+    .spot-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 18px;
+      margin-bottom: 8px;
+    }
+
+    .price-box {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+    }
+
+    .price-item {
+      padding: 14px;
+      border-radius: 18px;
+      background: #f6f9fc;
+      border: 1px solid var(--line);
+    }
+
+    .price-item strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .weather-banner {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #f8fbff;
+      border: 1px solid var(--line);
+    }
+
+    .check-item input {
+      margin-top: 3px;
+      width: 18px;
+      height: 18px;
+      accent-color: #1677ff;
+      flex: 0 0 auto;
+    }
+
+    .check-item span {
+      color: var(--text);
+      font-weight: 700;
+      line-height: 1.65;
+    }
+
+    .subtle {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .footer {
+      margin-top: 26px;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 700;
+      padding-bottom: 18px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+      background: rgba(10, 18, 32, 0.56);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal.open { display: flex; }
+
+    .modal-card {
+      width: min(820px, 100%);
+      max-height: min(86vh, 900px);
+      overflow: auto;
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 30px 80px rgba(15,23,42,0.28);
+      border: 1px solid rgba(219,226,234,0.92);
+    }
+
+    .modal-hero {
+      height: 280px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .modal-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(6,11,20,0.12), rgba(6,11,20,0.48));
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      z-index: 2;
+      border: 0;
+      border-radius: 999px;
+      width: 42px;
+      height: 42px;
+      background: rgba(255,255,255,0.92);
+      color: #18304f;
+      font-size: 1.2rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(15,23,42,0.16);
+    }
+
+    .modal-body {
+      padding: 20px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .modal-heading {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+    }
+
+    .modal-heading h3 {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.4;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .modal-box {
+      border-radius: 18px;
+      padding: 16px;
+      background: #f7fafd;
+      border: 1px solid var(--line);
+    }
+
+    .modal-box strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.96rem;
+    }
+
+    .link-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .muted-strong {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    @media (max-width: 980px) {
+      .notice-grid,
+      .summary-grid,
+      .weather-banner,
+      .prep-grid,
+      .spot-grid,
+      .info-grid,
+      .day-layout,
+      .hero-content,
+      .modal-grid,
+      .price-box {
+        grid-template-columns: 1fr;
+      }
+
+      .day-panel {
+        position: static;
+      }
+
+      .hero {
+        min-height: 520px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      :root { --header-h: 68px; }
+
+      .app,
+      .topbar-inner {
+        width: min(100vw - 18px, 1180px);
+      }
+
+      .hero {
+        min-height: 560px;
+        border-radius: 24px;
+      }
+
+      .hero-content,
+      .card,
+      .modal-body {
+        padding: 16px;
+      }
+
+      .brand h1 { font-size: 0.98rem; }
+      .brand p { font-size: 0.82rem; }
+      .section-title { flex-direction: column; align-items: flex-start; }
+      .modal-hero { height: 220px; }
+      .itinerary-top { flex-direction: column; }
+      .header-actions { display: none; }
+      .tabs { top: calc(var(--header-h) + 6px); }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div>
+          <h1>沖繩自由行</h1>
+          <p>6 人・2 晚 3 天・虎航晚去晚回・海邊放鬆喝酒版</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="chip">☀️ 5 月白天約 24–27°C</span>
+        <span class="chip">✈️ Tigerair 晚去晚回</span>
+        <span class="chip">🍺 海邊看海＋酒吧聊天</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="app">
+    <section class="hero">
+      <div class="hero-content">
+        <div>
+          <h2>沖繩自由行<br/>海風、夕陽、微醺剛剛好</h2>
+          <p class="sub">
+            以 <strong>台灣虎航晚去晚回</strong> 為核心，把兩晚重點放在 <strong>國際通附近包棟入住</strong>、
+            <strong>第 2 天北上美麗海</strong>、<strong>最後一天到瀨長島看海喝酒放鬆</strong>。
+            這份頁面是單檔純前端設計，適合手機瀏覽，也能點擊每張行程卡查看更詳細的旅遊資訊、交通、費用，以及以一般超連結方式開啟 Google Maps 與相關網站。
+          </p>
+          <div class="hero-badges">
+            <span class="hero-badge">5/15（五）18:20 → 20:40</span>
+            <span class="hero-badge">5/17（日）21:30 → 22:05</span>
+            <span class="hero-badge">重點：瀨長島夕陽小酌</span>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <h3>本次主線</h3>
+          <p><span class="accent">Day 1</span> 抵達那霸後直奔國際通，先吃晚餐、再去酒吧慢慢聊天。</p>
+          <p><span class="accent">Day 2</span> 租 7–8 人座車跑北部美麗海水族館，晚上回那霸 rooftop bar 微醺。</p>
+          <p><span class="accent">Day 3</span> 首里城＋牧志市場後，前往瀨長島看海、看飛機、喝一杯再回機場。</p>
+          <p class="subtle">航班與票價仍以虎航訂票頁當日顯示為準。</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="notice-grid" style="margin-top: 18px;">
+      <article class="card notice-card">
+        <h4>✈️ 航班</h4>
+        <p>以虎航晚班最順：5/15 晚去、5/17 晚回，不壓縮最後一天行程。</p>
+        <div class="pill-row">
+          <span class="pill gold">去程 18:20 → 20:40</span>
+          <span class="pill gold">回程 21:30 → 22:05</span>
+        </div>
+      </article>
+      <article class="card notice-card">
+        <h4>🏠 住宿</h4>
+        <p>建議住國際通、牧志或美榮橋附近整套公寓／包棟，晚上最方便續攤。</p>
+        <div class="pill-row">
+          <span class="pill">6 人整套</span>
+          <span class="pill">近單軌站</span>
+        </div>
+      </article>
+      <article class="card notice-card">
+        <h4>🚗 交通</h4>
+        <p>市區用單軌與計程車；北部行程用 7–8 人座車最省時也最好分攤。</p>
+        <div class="pill-row">
+          <span class="pill">Day 2 租車</span>
+          <span class="pill">市區免開車</span>
+        </div>
+      </article>
+      <article class="card notice-card">
+        <h4>🌧️ 天氣</h4>
+        <p>5 月的沖繩通常溫暖偏潮，偶有陣雨，帶折疊傘與薄外套最實用。</p>
+        <div class="pill-row">
+          <span class="pill">短袖為主</span>
+          <span class="pill">雨備要有</span>
+        </div>
+      </article>
+    </div>
+
+    <nav class="tabs" id="tabs">
+      <button class="tab-btn active" data-tab="overview">總覽</button>
+      <button class="tab-btn" data-tab="day1">Day 1｜5/15（五）</button>
+      <button class="tab-btn" data-tab="day2">Day 2｜5/16（六）</button>
+      <button class="tab-btn" data-tab="day3">Day 3｜5/17（日）</button>
+      <button class="tab-btn" data-tab="spots">景點精選</button>
+      <button class="tab-btn" data-tab="prep">行前準備</button>
+    </nav>
+
+    <section id="overview" class="tab-panel active">
+      <div class="section-title">
+        <div>
+          <h3>旅程總覽</h3>
+          <p>這份安排把「交通效率」與「海邊放鬆感」放在最前面，讓短天數也能玩得舒服。</p>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <article class="card summary-card">
+          <h4>Day 1｜輕鬆落地</h4>
+          <p>那霸機場入境後直接進市區，入住包棟，晚餐走國際通與屋台村路線，第一晚就開始聊天喝酒。</p>
+          <div class="pill-row"><span class="pill gold">重點時段 22:00 後</span><span class="pill">不排太滿</span></div>
+        </article>
+        <article class="card summary-card">
+          <h4>Day 2｜北部重點日</h4>
+          <p>一早租車北上，到美麗海水族館與海洋博公園。回程晚餐選牛排或沖繩料理，之後去 rooftop bar。</p>
+          <div class="pill-row"><span class="pill gold">重點時段 08:00 取車</span><span class="pill">美麗海主景點</span></div>
+        </article>
+        <article class="card summary-card">
+          <h4>Day 3｜海邊放鬆收尾</h4>
+          <p>首里城與牧志市場後，把下午完整留給瀨長島。看夕陽、看海、看飛機、喝一杯，是最適合這趟的結尾。</p>
+          <div class="pill-row"><span class="pill gold">重點時段 15:30 海邊放空</span><span class="pill">喝酒放鬆主線</span></div>
+        </article>
+      </div>
+
+      <div class="weather-banner">
+        <article class="card info-card">
+          <h4>天氣與穿搭</h4>
+          <p>5 月沖繩白天通常溫暖潮濕，白天約 24–27°C，晚間體感仍舒適。建議以短袖與薄外套為主，若安排瀨長島看夕陽與海邊久坐，帶一件能防風的薄襯衫會更舒服。</p>
+          <div class="pill-row">
+            <span class="pill">短袖＋薄外套</span>
+            <span class="pill">折疊傘</span>
+            <span class="pill">防曬帽／太陽眼鏡</span>
+          </div>
+        </article>
+        <article class="card info-card">
+          <h4>其他重點資訊</h4>
+          <p>虎航手提行李建議控制在 10kg 內較好操作。行程中有酒吧與海邊小酌，若第 2 天租車，請務必安排駕駛者不飲酒。最後一天建議提早 2.5–3 小時回機場附近活動，節奏會最穩。</p>
+          <div class="pill-row">
+            <span class="pill gold">駕駛者不喝酒</span>
+            <span class="pill">提早回機場周邊</span>
+            <span class="pill">晚班機最順</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-title">
+        <div>
+          <h3>預算概念</h3>
+          <p>以下是以廉航、6 人分攤交通、兩晚有喝酒的版本估算。</p>
+        </div>
+      </div>
+      <div class="price-box">
+        <article class="card price-item">
+          <strong>壓低預算版</strong>
+          <p class="meta-strong">每人約 NT$12,000–14,500</p>
+          <p>適合不托運、住宿抓中價位、晚餐以屋台／定食／塔可飯為主。</p>
+        </article>
+        <article class="card price-item">
+          <strong>舒服玩版本</strong>
+          <p class="meta-strong">每人約 NT$15,000–17,500</p>
+          <p>適合加 1 件托運、包棟挑舒適一點、晚餐加 1 次牛排與 2 晚酒吧。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="day1" class="tab-panel"></section>
+    <section id="day2" class="tab-panel"></section>
+    <section id="day3" class="tab-panel"></section>
+
+    <section id="spots" class="tab-panel">
+      <div class="section-title">
+        <div>
+          <h3>景點精選</h3>
+          <p>以本次行程最適合的 4 個主景點為核心，兼顧市區、文化、海景與放鬆感。</p>
+        </div>
+      </div>
+      <div class="spot-grid" id="spotGrid"></div>
+    </section>
+
+    <section id="prep" class="tab-panel">
+      <div class="section-title">
+        <div>
+          <h3>行前準備與備忘錄</h3>
+          <p>可直接勾選。勾選狀態會暫存在瀏覽器中，方便出發前再檢查一次。</p>
+        </div>
+      </div>
+      <div class="prep-grid">
+        <article class="card prep-card">
+          <h4>出發前 checklist</h4>
+          <div class="checklist" id="checklist"></div>
+        </article>
+        <article class="card prep-card">
+          <h4>快速提醒</h4>
+          <p>1. 廉航手提與托運規則先確認，避免現場加價。</p>
+          <p>2. 包棟地址、入住方式與門鎖密碼提前存好。</p>
+          <p>3. 第 2 天若租車，駕駛者當天整天都不要飲酒。</p>
+          <p>4. 瀨長島風較大，海邊久坐可備薄外套。</p>
+          <p>5. 晚班機回程，機場伴手禮與退稅可預留時間處理。</p>
+          <div class="quote">最推薦的放鬆主線：<br/>國際通慢吃慢逛 → Sky Salon 夜聊 → 美麗海 → 瀨長島看夕陽喝酒。</div>
+        </article>
+      </div>
+    </section>
+
+    <div class="footer">沖繩自由行｜純前端互動式旅程頁面</div>
+  </div>
+
+  <div class="modal" id="detailModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-hero" id="modalHero">
+        <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const days = {
+      day1: {
+        label: 'Day 1｜5/15（五）',
+        title: '抵達那霸・國際通夜聊開場',
+        summary: '第一天不塞太多景點，重點是順利進市區、入住包棟、吃晚餐、喝酒聊天，讓隔天保留體力跑北部。',
+        heroImage: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1400&q=80',
+        sideTitle: '今天的旅行節奏',
+        sideNote: '晚班機落地後，以「少移動、多放鬆」為原則，先把喝酒聊天的氛圍打開。',
+        travelTip: '若 6 人都有行李，從那霸機場搭 2 台計程車直達住宿最省力；若住宿離單軌站很近，也可直接搭單軌進市區。',
+        quickInfo: [
+          '建議住宿區域：國際通 / 牧志 / 美榮橋',
+          '晚餐優先選擇非海鮮也好吃的餐廳',
+          '第一晚酒吧以舒服聊天為主，不排夜店型行程'
+        ],
+        items: [
+          {
+            time: '16:20',
+            title: '抵達桃園機場，辦理虎航報到',
+            important: true,
+            location: '桃園國際機場 T1 / T2',
+            brief: '廉航建議提早辦理，若有託運與座位安排，更要保留餘裕。',
+            details: '虎航版本以晚去晚回為主軸，這樣不會犧牲 5/17 下午的海邊放鬆時段。若你們有共同托運行李，建議在出發前先分配好，能減少櫃台重整時間。',
+            cost: '機票視購買時機而定；若不托運通常更省。',
+            traffic: '自行前往機場，建議至少起飛前 2 小時到。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Taoyuan+International+Airport',
+            website: 'https://www.tigerairtw.com/zh-tw',
+            websiteLabel: '虎航官網',
+            image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1400&q=80',
+            tags: ['重要時間', '廉航', '提前報到']
+          },
+          {
+            time: '18:20',
+            title: '虎航起飛：TPE → OKA',
+            important: true,
+            location: '台北桃園 → 那霸',
+            brief: '本次採用虎航晚去時段，讓白天可留在台灣安排事務。',
+            details: '這個時段最大的優勢，是不會太早起，又能在當天晚上順利進到那霸市區。若票價浮動，仍建議以同樣概念的晚去晚回為優先。',
+            cost: '廉航價格依檔期波動，建議實際下單時比價。',
+            traffic: '直飛為主。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Naha+Airport',
+            website: 'https://www.tigerairtw.com/zh-tw/ready-to-go/flight-schedule',
+            websiteLabel: '航班時刻表',
+            image: 'https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?auto=format&fit=crop&w=1400&q=80',
+            tags: ['虎航', '晚去最順']
+          },
+          {
+            time: '20:40',
+            title: '抵達那霸機場，入境與提領行李',
+            important: true,
+            location: '那霸機場',
+            brief: '落地後建議快速分工：1–2 人看交通、其他人負責行李。',
+            details: '若住宿在國際通或牧志附近，你們可以依行李數量決定搭單軌或分兩台計程車。以舒適度來說，晚間到達時直接計程車最輕鬆。',
+            cost: '單軌約每人 ¥290–320；或兩台計程車分攤。',
+            traffic: '單軌／計程車',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Naha+Airport',
+            website: 'https://www.naha-airport.co.jp/en/',
+            websiteLabel: '那霸機場',
+            image: 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?auto=format&fit=crop&w=1400&q=80',
+            tags: ['機場', '計程車', '單軌']
+          },
+          {
+            time: '21:30',
+            title: '前往包棟住宿，建議入住國際通周邊',
+            important: false,
+            location: '牧志 / 美榮橋 / 縣廳前',
+            brief: '住在國際通步行圈，第一晚與最後一天都最方便。',
+            details: '6 人包棟建議找整套 apartment 或 whole house。若能找到兩間衛浴以上會更舒服。第一晚抵達較晚，住市區可把移動壓到最低。',
+            cost: '住宿依房型與位置而定。',
+            traffic: '機場到市區約 20 分鐘。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Kokusai-dori+Naha',
+            website: 'https://www.google.com/travel/hotels/Naha',
+            websiteLabel: '住宿搜尋',
+            image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80',
+            tags: ['包棟', '國際通', '夜生活方便']
+          },
+          {
+            time: '22:10',
+            title: '國際通晚餐：屋台村 / 塔可飯 / 牛排擇一',
+            important: true,
+            location: '國際通周邊',
+            brief: '第一晚建議先選大家都能吃的店，避免海鮮偏好不同。',
+            details: '若想熱鬧又彈性高，可以去國際通屋台村，邊走邊選。若想穩定照顧不吃海鮮的成員，可以直接選塔可飯、沖繩麵或牛排店。這一晚的重點不是吃最豪華，而是舒服開局。',
+            cost: '每人約 ¥1,200–2,000。',
+            traffic: '步行為主。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Kokusai+Street+Yatai+Village+Naha',
+            website: 'https://www.google.com/maps/search/?api=1&query=The+Taco+Rice+House+Naha',
+            websiteLabel: '塔可飯地圖',
+            image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1400&q=80',
+            tags: ['晚餐', '非海鮮友善', '國際通']
+          },
+          {
+            time: '23:00',
+            title: '酒吧聊天：POPAI 或國際通後巷小酌',
+            important: true,
+            location: '國際通附近',
+            brief: '第一晚以近、舒服、可聊天為主，不用特別跑遠。',
+            details: '如果大家落地後還有精神，可以在國際通附近找輕鬆的 bar 或後巷居酒屋續攤。建議控制在 1–2 杯，讓隔天還有精神跑美麗海。',
+            cost: '每人約 ¥1,500–2,500。',
+            traffic: '步行。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=POPAI+Naha',
+            website: 'https://www.google.com/maps/search/?api=1&query=bars+near+Kokusai-dori+Naha',
+            websiteLabel: '附近酒吧',
+            image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1400&q=80',
+            tags: ['喝酒', '夜聊', '第一晚']
+          }
+        ]
+      },
+      day2: {
+        label: 'Day 2｜5/16（六）',
+        title: '北上美麗海・晚上回那霸 rooftop bar',
+        summary: '第二天是整趟最完整的一天，上午北上、下午回城、晚上舒服喝酒。',
+        heroImage: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1400&q=80',
+        sideTitle: '今天的旅行節奏',
+        sideNote: '把遠的景點一次跑完，晚上再回到那霸放鬆，節奏最穩。',
+        travelTip: '6 人直接租 7–8 人座最合理。從那霸到美麗海車程約 2 小時，若改搭大眾運輸，會明顯壓縮可玩時間。',
+        quickInfo: [
+          '駕駛者整天不飲酒',
+          '早點出發，下午回市區才不會太累',
+          '晚餐可選牛排或沖繩家庭料理'
+        ],
+        items: [
+          {
+            time: '08:00',
+            title: '市區取 7–8 人座車',
+            important: true,
+            location: '那霸市區租車點',
+            brief: '今天行程的關鍵在於準時出發，取車越順，北部越從容。',
+            details: '建議找那霸市區或機場附近的租車點，取 7–8 人座 minivan。6 人乘坐加上隨身物品會最剛好。保險、ETC 與導航設定建議在前一天先確認好。',
+            cost: '6 人分攤後，每人約 NT$500–700 左右。',
+            traffic: '步行／計程車到租車點。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Times+Car+Rental+Naha',
+            website: 'https://www.timescar-rental.com/en/okinawa/',
+            websiteLabel: '租車參考',
+            image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
+            tags: ['租車', '重要時間', '北部']
+          },
+          {
+            time: '08:30',
+            title: '從那霸出發前往美麗海水族館',
+            important: true,
+            location: '那霸 → 本部町',
+            brief: '從那霸北上，沿途景色逐漸開闊，這段是今天最長的移動。',
+            details: '車程約 2 小時左右，途中可視情況於休息站停留。因為下午還要回市區，建議不要在北部額外塞太多點，保持主線清楚會更舒服。',
+            cost: '高速費與油錢由 6 人分攤。',
+            traffic: '租車自駕。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Okinawa+Churaumi+Aquarium',
+            website: 'https://churaumi.okinawa/en/',
+            websiteLabel: '水族館官網',
+            image: 'https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1400&q=80',
+            tags: ['開車', '美麗海', '重要時間']
+          },
+          {
+            time: '10:30',
+            title: '美麗海水族館＋海洋博公園',
+            important: true,
+            location: '沖繩美麗海水族館',
+            brief: '沖繩本島最值得排進短天數行程的代表景點之一。',
+            details: '除了大水槽與鯨鯊之外，海洋博公園整體也很舒服。若時間有限，可以把主力放在水族館本館、海景步道與紀念照，不一定每個區域都要看滿。',
+            cost: '成人票約 ¥2,180。',
+            traffic: '租車，自由停留。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Okinawa+Churaumi+Aquarium',
+            website: 'https://churaumi.okinawa/en/guide/hour/',
+            websiteLabel: '營業時間',
+            image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=80',
+            tags: ['主景點', '看海感', '拍照']
+          },
+          {
+            time: '12:40',
+            title: '園區午餐：塔可飯 / 沖繩麵 / 輕食',
+            important: false,
+            location: '水族館園區',
+            brief: '午餐以快速補給為主，回到那霸再安排正式晚餐。',
+            details: '園區內比較適合選擇塔可飯、沖繩麵或簡單輕食，讓大家不會吃太久。這樣下午回程才不會拖到太晚，也能保留晚上 rooftop bar 的心情。',
+            cost: '每人約 ¥700–1,500。',
+            traffic: '步行。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=restaurants+near+Okinawa+Churaumi+Aquarium',
+            website: 'https://churaumi.okinawa/en/guide/facility/cafe/',
+            websiteLabel: '園區餐飲',
+            image: 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1400&q=80',
+            tags: ['午餐', '快節奏', '非海鮮可']
+          },
+          {
+            time: '14:15',
+            title: '返回那霸市區',
+            important: false,
+            location: '本部町 → 那霸',
+            brief: '回程建議簡單休息，不再硬塞額外景點。',
+            details: '若大家精神很好，路上可短暫休息買飲料，但不建議再加遠的點。回那霸後洗澡稍微整理一下，再出門吃晚餐與喝酒，體驗會更完整。',
+            cost: '高速費與油錢分攤。',
+            traffic: '租車自駕。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Naha',
+            website: 'https://www.google.com/maps/search/?api=1&query=Naha',
+            websiteLabel: '回那霸',
+            image: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1400&q=80',
+            tags: ['回程', '放慢節奏']
+          },
+          {
+            time: '18:30',
+            title: '晚餐：牛排或沖繩家庭料理',
+            important: true,
+            location: '國際通周邊',
+            brief: '第二晚可以吃得正式一點，但仍保留非海鮮友善選擇。',
+            details: '如果你們想穩穩照顧所有人口味，Steak House 88 會是很安全的選擇。若想吃一點沖繩特色，可以選 Yunangi 類型的家庭料理店，再避開明顯海鮮主菜即可。',
+            cost: '每人約 ¥2,500–4,000。',
+            traffic: '市區步行／短程計程車。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Steak+House+88+Kokusai+Street+Naha',
+            website: 'https://www.google.com/maps/search/?api=1&query=Yunangi+Naha',
+            websiteLabel: '餐廳地圖',
+            image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1400&q=80',
+            tags: ['晚餐', '牛排', '非海鮮友善']
+          },
+          {
+            time: '20:30',
+            title: 'Sky Salon Rooftop Bar 微醺夜聊',
+            important: true,
+            location: '美榮橋站附近',
+            brief: '這是第二晚最值得期待的放鬆時段，景色與氛圍都很適合 6 人聊天。',
+            details: 'Sky Salon 屬於比較舒服的 rooftop bar，不會像太吵的酒吧那樣讓人很難聊天。建議大家這晚把步調放慢，聊旅程、拍照、好好享受那霸的夜景。',
+            cost: '每人約 ¥2,000–3,000。',
+            traffic: '步行／短程計程車。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Sky+Salon+Hotel+Strata+Naha',
+            website: 'https://www.strata-naha.com/en/restaurant/',
+            websiteLabel: 'Sky Salon',
+            image: 'https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1400&q=80',
+            tags: ['酒吧', '重點行程', '聊天']
+          }
+        ]
+      },
+      day3: {
+        label: 'Day 3｜5/17（日）',
+        title: '首里城・牧志市場・瀨長島夕陽喝酒',
+        summary: '最後一天不排太遠，把體驗感拉高。上午文化景點，中午市場，下午到海邊徹底放鬆。',
+        heroImage: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1400&q=80',
+        sideTitle: '今天的旅行節奏',
+        sideNote: '前段輕鬆逛，後段完整留給海邊。這一天的主角是瀨長島的海風、夕陽與微醺感。',
+        travelTip: '若今天不開車，市區以單軌搭配計程車最順。瀨長島回機場很近，不必太早緊張。',
+        quickInfo: [
+          '首里城建議上午去，人較舒服',
+          '午餐可在牧志市場與國際通周邊彈性解決',
+          '下午的瀨長島就是這趟的海邊 relax 重點'
+        ],
+        items: [
+          {
+            time: '09:00',
+            title: '退房與寄放行李',
+            important: false,
+            location: '包棟住宿',
+            brief: '先把大型行李處理好，最後一天行程會輕鬆很多。',
+            details: '若住宿能寄放行李最好；若不能，也可直接用 coin locker 或考慮提早移到機場附近。總之要避免拖著行李跑首里城與瀨長島。',
+            cost: '視住宿方案而定。',
+            traffic: '步行。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Kokusai-dori+Naha',
+            website: 'https://www.google.com/maps/search/?api=1&query=coin+locker+naha',
+            websiteLabel: '寄物地圖',
+            image: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1400&q=80',
+            tags: ['寄物', '輕裝']
+          },
+          {
+            time: '10:00',
+            title: '首里城公園散步',
+            important: true,
+            location: '首里城公園',
+            brief: '把文化感留在最後一天上午，很適合慢慢拍照。',
+            details: '首里城除了歷史感之外，整體視野也很好。即使這趟不是文化深度旅行，安排 1.5–2 小時走走也非常值得。若不想太趕，可以以守禮門與主要步道為核心。',
+            cost: '成人票約 ¥400。',
+            traffic: '單軌＋步行／計程車。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Shurijo+Castle+Park',
+            website: 'https://oki-park.jp/shurijo/en/',
+            websiteLabel: '首里城官網',
+            image: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1400&q=80',
+            tags: ['文化景點', '重要時間']
+          },
+          {
+            time: '12:30',
+            title: '牧志市場 / 國際通午餐',
+            important: false,
+            location: '第一牧志公設市場',
+            brief: '想吃海鮮的人可以在市場點菜，不吃海鮮的人也能吃沖繩麵與定食。',
+            details: '這裡最大的優點是彈性高，大家可以依口味分流。你們有不吃海鮮的需求，因此這裡非常好用：想吃海鮮的人吃市場，其他人可以選沖繩麵、阿古豬、定食或塔可飯。',
+            cost: '每人約 ¥1,000–2,000。',
+            traffic: '單軌＋步行。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Makishi+Public+Market',
+            website: 'https://www.makishi-public-market.jp/',
+            websiteLabel: '牧志市場',
+            image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1400&q=80',
+            tags: ['市場', '午餐', '口味彈性']
+          },
+          {
+            time: '15:30',
+            title: '瀨長島 Umikaji Terrace：看海、看飛機、喝一杯',
+            important: true,
+            location: '瀨長島 Umikaji Terrace',
+            brief: '這就是本次「海邊放鬆喝酒」的主角時段，務必留完整。',
+            details: '瀨長島很適合最後一天收尾：離機場近、海景漂亮、節奏舒服，還可以看到飛機起降。建議至少留 2 小時，點飲料、啤酒或調酒，找個視野好的座位慢慢放空。',
+            cost: '每人約 ¥800–2,000，視飲料與酒精選擇而定。',
+            traffic: '計程車／自駕。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Senagajima+Umikaji+Terrace',
+            website: 'https://www.umikajiterrace.com/',
+            websiteLabel: 'Umikaji Terrace',
+            image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80',
+            tags: ['海邊', '夕陽', '喝酒放鬆']
+          },
+          {
+            time: '18:30',
+            title: '前往那霸機場，預留登機與伴手禮時間',
+            important: true,
+            location: '那霸機場',
+            brief: '從瀨長島到機場很近，但最後一天還是以從容為主。',
+            details: '建議不要把瀨長島待到太極限，因為最後還要處理伴手禮、安檢與登機。若大家想再多坐一下，可以先把手上購物與退稅安排好。',
+            cost: '計程車費用由 6 人分攤。',
+            traffic: '計程車。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Naha+Airport',
+            website: 'https://www.naha-airport.co.jp/en/',
+            websiteLabel: '機場資訊',
+            image: 'https://images.unsplash.com/photo-1473625247510-8ceb1760943f?auto=format&fit=crop&w=1400&q=80',
+            tags: ['回機場', '重要時間']
+          },
+          {
+            time: '21:30',
+            title: '虎航返台：OKA → TPE',
+            important: true,
+            location: '那霸 → 桃園',
+            brief: '晚班機回台，是這次短天數還能排海邊放鬆行程的關鍵。',
+            details: '這個回程時段讓你們可以在 5/17 下午完整安排瀨長島，不必為了提早去機場而放棄海邊。整趟旅程的氛圍也會因此更完整。',
+            cost: '依實際票價與行李方案而定。',
+            traffic: '直飛。',
+            maps: 'https://www.google.com/maps/search/?api=1&query=Naha+Airport',
+            website: 'https://www.tigerairtw.com/zh-tw/ready-to-go/flight-schedule',
+            websiteLabel: '返程時刻',
+            image: 'https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?auto=format&fit=crop&w=1400&q=80',
+            tags: ['返台', '重要時間', '晚回']
+          }
+        ]
+      }
+    };
+
+    const spots = [
+      {
+        title: '沖繩美麗海水族館',
+        image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=80',
+        desc: '沖繩本島的代表級景點。若這趟只能選一個北部主景點，美麗海幾乎就是最不容易後悔的答案。大片海景與水族館主缸，是短天數旅程裡最有記憶點的畫面。',
+        maps: 'https://www.google.com/maps/search/?api=1&query=Okinawa+Churaumi+Aquarium',
+        site: 'https://churaumi.okinawa/en/'
+      },
+      {
+        title: '首里城公園',
+        image: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1400&q=80',
+        desc: '首里城適合安排在最後一天上午。步調不需要太快，慢慢走、慢慢拍照，就能感受到和海邊完全不同的沖繩層次。',
+        maps: 'https://www.google.com/maps/search/?api=1&query=Shurijo+Castle+Park',
+        site: 'https://oki-park.jp/shurijo/en/'
+      },
+      {
+        title: '牧志市場與國際通',
+        image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1400&q=80',
+        desc: '國際通的優點不是單一景點，而是任何人都能在這裡找到適合自己的節奏：吃飯、買東西、喝酒、走逛都很方便。',
+        maps: 'https://www.google.com/maps/search/?api=1&query=Makishi+Public+Market',
+        site: 'https://www.makishi-public-market.jp/'
+      },
+      {
+        title: '瀨長島 Umikaji Terrace',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80',
+        desc: '這趟最符合「海邊看海、喝酒放鬆」關鍵字的地方。離機場近、景色好、節奏鬆，最後一天排在這裡非常剛好。',
+        maps: 'https://www.google.com/maps/search/?api=1&query=Senagajima+Umikaji+Terrace',
+        site: 'https://www.umikajiterrace.com/'
+      }
+    ];
+
+    const checklistItems = [
+      '確認護照有效期與機票英文姓名一致',
+      '虎航手提／托運行李規則確認完成',
+      'Visit Japan Web 先填好並截圖備用',
+      '包棟住宿地址、入住方式、門鎖密碼已儲存',
+      '租車文件、保險與駕駛分工已確認',
+      '行動網路 eSIM / 網卡已準備',
+      '折疊傘、防曬、薄外套已放入行李',
+      '信用卡、現金與海外刷卡通知已處理',
+      'Google Maps 已收藏住宿、餐廳、景點',
+      '最後一天瀨長島與機場移動方案已確認'
+    ];
+
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabs.forEach(b => b.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    function createActionButton(href, label, type = 'soft') {
+      const a = document.createElement('a');
+      a.href = href;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer external';
+      a.referrerPolicy = 'no-referrer';
+      a.className = `btn ${type === 'primary' ? 'btn-primary' : 'btn-soft'}`;
+      a.textContent = label;
+      a.addEventListener('click', e => e.stopPropagation());
+      return a;
+    }
+
+    function renderDay(dayKey) {
+      const day = days[dayKey];
+      const root = document.getElementById(dayKey);
+
+      root.innerHTML = `
+        <div class="section-title">
+          <div>
+            <h3>${day.label}</h3>
+            <p>${day.summary}</p>
+          </div>
+        </div>
+        <div class="day-layout">
+          <div class="timeline" id="timeline-${dayKey}"></div>
+          <aside class="day-panel">
+            <article class="card cover-card">
+              <img src="${day.heroImage}" alt="${day.title}" loading="lazy" />
+              <div class="inner">
+                <h4>${day.sideTitle}</h4>
+                <p>${day.sideNote}</p>
+              </div>
+            </article>
+            <article class="card">
+              <h4>旅行小提醒</h4>
+              <p>${day.travelTip}</p>
+              <div class="quote">${dayKey === 'day3' ? '這天最重要的是把下午完整留給瀨長島。' : dayKey === 'day2' ? '今天的喝酒時段留在晚上回到那霸之後。' : '第一晚以放鬆開場，節奏寬鬆一點最好。'} </div>
+            </article>
+            <article class="card">
+              <h4>今日重點</h4>
+              <ul class="list-clean">
+                ${day.quickInfo.map(item => `<li>${item}</li>`).join('')}
+              </ul>
+            </article>
+          </aside>
+        </div>
+      `;
+
+      const timeline = root.querySelector(`#timeline-${dayKey}`);
+      day.items.forEach(item => {
+        const card = document.createElement('article');
+        card.className = 'card itinerary-card';
+        card.innerHTML = `
+          <div class="itinerary-top">
+            <div class="time-badge ${item.important ? 'gold' : ''}">${item.time}</div>
+            <div style="flex:1; min-width:0;">
+              <h4 class="itinerary-title">${item.title}</h4>
+              <p style="margin: 6px 0 0;">${item.brief}</p>
+            </div>
+          </div>
+          <div class="pill-row">
+            ${item.tags.map(tag => `<span class="pill ${item.important && (tag.includes('重要') || tag.includes('重點')) ? 'gold' : ''}">${tag}</span>`).join('')}
+          </div>
+          <div class="actions">
+            <a href="${item.maps}" class="btn btn-primary" target="_blank" rel="noopener noreferrer external" referrerpolicy="no-referrer">Google Maps</a>
+            <a href="${item.website}" class="btn btn-soft" target="_blank" rel="noopener noreferrer external" referrerpolicy="no-referrer">${item.websiteLabel}</a>
+          </div>
+        `;
+        card.addEventListener('click', () => openModal(item));
+        timeline.appendChild(card);
+      });
+    }
+
+    function renderSpots() {
+      const root = document.getElementById('spotGrid');
+      spots.forEach(spot => {
+        const el = document.createElement('article');
+        el.className = 'card spot-card';
+        el.innerHTML = `
+          <img src="${spot.image}" alt="${spot.title}" loading="lazy" />
+          <h4>${spot.title}</h4>
+          <p>${spot.desc}</p>
+          <div class="actions">
+            <a href="${spot.maps}" target="_blank" rel="noopener noreferrer external" referrerpolicy="no-referrer" class="btn btn-primary">Google Maps</a>
+            <a href="${spot.site}" target="_blank" rel="noopener noreferrer external" referrerpolicy="no-referrer" class="btn btn-soft">相關網站</a>
+          </div>
+        `;
+        root.appendChild(el);
+      });
+    }
+
+    function renderChecklist() {
+      const root = document.getElementById('checklist');
+      const saved = JSON.parse(localStorage.getItem('okinawa-checklist') || '{}');
+
+      checklistItems.forEach((item, index) => {
+        const id = `check-${index}`;
+        const row = document.createElement('label');
+        row.className = 'check-item';
+        row.innerHTML = `
+          <input type="checkbox" id="${id}" ${saved[id] ? 'checked' : ''} />
+          <span>${item}</span>
+        `;
+        const input = row.querySelector('input');
+        input.addEventListener('change', e => {
+          saved[id] = e.target.checked;
+          localStorage.setItem('okinawa-checklist', JSON.stringify(saved));
+        });
+        root.appendChild(row);
+      });
+    }
+
+    const modal = document.getElementById('detailModal');
+    const modalBody = document.getElementById('modalBody');
+    const modalHero = document.getElementById('modalHero');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(item) {
+      modalHero.style.backgroundImage = `url('${item.image}')`;
+      modalBody.innerHTML = `
+        <div class="modal-heading">
+          <div>
+            <div class="pill-row" style="margin-top:0; margin-bottom:10px;">
+              <span class="time-badge ${item.important ? 'gold' : ''}" style="min-width:auto;">${item.time}</span>
+              <span class="pill">${item.location}</span>
+            </div>
+            <h3>${item.title}</h3>
+          </div>
+        </div>
+        <p>${item.details}</p>
+        <div class="modal-grid">
+          <div class="modal-box">
+            <strong>交通方式</strong>
+            <p>${item.traffic}</p>
+          </div>
+          <div class="modal-box">
+            <strong>預估費用</strong>
+            <p>${item.cost}</p>
+          </div>
+        </div>
+        <div class="modal-box">
+          <strong>旅遊小筆記</strong>
+          <p class="muted-strong">${item.brief}</p>
+          <p>建議依天氣與團體精神狀況微調。若大家比較想放鬆，這個點的停留時間可以拉長；若想壓縮時間，也能保留主重點不影響整體節奏。</p>
+        </div>
+        <div>
+          <strong style="display:block; margin-bottom:10px;">相關連結</strong>
+          <div class="link-list">
+            <a href="${item.maps}" target="_blank" rel="noopener noreferrer external" referrerpolicy="no-referrer" class="btn btn-primary">Google Maps</a>
+            <a href="${item.website}" target="_blank" rel="noopener noreferrer external" referrerpolicy="no-referrer" class="btn btn-soft">${item.websiteLabel}</a>
+          </div>
+        </div>
+      `;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeModal();
+    });
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    renderDay('day1');
+    renderDay('day2');
+    renderDay('day3');
+    renderSpots();
+    renderChecklist();
+  </script>
+</body>
+</html>
